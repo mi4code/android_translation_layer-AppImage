@@ -18,16 +18,8 @@ echo "---------------------------------------------------------------"
 
 # ---- Initialize and refresh pacman keys ----
 
-echo "Initializing pacman keyring..."
-sudo pacman-key --init
-sudo pacman-key --populate archlinux
-# Refresh keys from keyservers
-sudo pacman-key --refresh-keys
-# ---- Install Chaotic-AUR keyring and mirrorlist ----
-echo "Installing Chaotic-AUR keyring and mirrorlist..."
-sudo pacman -U --noconfirm https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
-sudo pacman -U --noconfirm https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
-# Refresh databases
-sudo pacman -Syy
+#sudo pacman -Syy --noconfirm
+sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
+sudo pacman -Syy --noconfirm
 
 make-aur-package --chaotic-aur android_translation_layer-git
