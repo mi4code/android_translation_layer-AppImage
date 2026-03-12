@@ -32,7 +32,7 @@ sudo pacman -S --noconfirm go
 # build yay as the builder user
 sudo -u builder bash <<'EOF'
 cd /home/builder
-sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
 yay -S --noconfirm android_translation_layer-git
 EOF
 
