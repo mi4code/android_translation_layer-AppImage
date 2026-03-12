@@ -18,7 +18,7 @@ echo "---------------------------------------------------------------"
 
 # ---- Initialize and refresh pacman keys ----
 
-#sudo pacman -Syy --noconfirm
+sudo pacman -Syy --noconfirm
 sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
 sudo pacman -Syy --noconfirm
 
