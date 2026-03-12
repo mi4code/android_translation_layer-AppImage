@@ -16,22 +16,18 @@ get-debloated-pkgs --add-mesa libxml2-mini opus-mini gdk-pixbuf2-mini librsvg-mi
 echo "Making AUR package..."
 echo "---------------------------------------------------------------"
 
-sudo pacman -Rdd --noconfirm chaotic-keyring chaotic-mirrorlist 2>/dev/null || true
-# Install latest keyring
-sudo pacman -U --noconfirm \
-https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
-# Install latest mirrorlist
-sudo pacman -U --noconfirm \
-https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
-# Refresh pacman databases
-sudo pacman -Rdd --noconfirm chaotic-keyring chaotic-mirrorlist 2>/dev/null || true
-# Install latest keyring
-sudo pacman -U --noconfirm \
-https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
-# Install latest mirrorlist
-sudo pacman -U --noconfirm \
-https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
-# Refresh pacman databases
+# ---- Initialize and refresh pacman keys ----
+
+echo "Initializing pacman keyring..."
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+# Refresh keys from keyservers
+sudo pacman-key --refresh-keys
+# ---- Install Chaotic-AUR keyring and mirrorlist ----
+echo "Installing Chaotic-AUR keyring and mirrorlist..."
+sudo pacman -U --noconfirm https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst
+sudo pacman -U --noconfirm https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst
+# Refresh databases
 sudo pacman -Syy
 
 make-aur-package --chaotic-aur android_translation_layer-git
