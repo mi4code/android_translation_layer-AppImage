@@ -21,6 +21,22 @@ echo "---------------------------------------------------------------"
 #sudo pacman -Syy --noconfirm
 #sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
 sudo pacman -Syy --noconfirm
+
+# create a non-root user for building AUR packages
+sudo useradd -m builder
+sudo passwd -d builder
+
+# allow sudo without password
+echo "builder ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/builder
+
+# build yay as the builder user
+sudo -u builder bash <<'EOF'
+cd /home/builder
 sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay -S --noconfirm android_translation_layer-git
+EOF
+
+
+
+
 #make-aur-package --chaotic-aur android_translation_layer-git
