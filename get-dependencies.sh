@@ -18,8 +18,8 @@ echo "---------------------------------------------------------------"
 
 # ---- Initialize and refresh pacman keys ----
 
-sudo pacman -Syy --noconfirm
-sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
+#sudo pacman -Syy --noconfirm
+#sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
 sudo pacman -Syy --noconfirm
 
 make-aur-package --chaotic-aur android_translation_layer-git
