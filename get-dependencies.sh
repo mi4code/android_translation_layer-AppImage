@@ -28,7 +28,7 @@ sudo passwd -d builder
 
 # allow sudo without password
 echo "builder ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/builder
-
+sudo pacman -S --noconfirm go
 # build yay as the builder user
 sudo -u builder bash <<'EOF'
 cd /home/builder
