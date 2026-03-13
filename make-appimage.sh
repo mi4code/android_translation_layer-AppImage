@@ -25,7 +25,9 @@ quick-sharun \
 	/usr/lib/libOpenSLES.so*           \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
-	/usr/share/atl
+	/usr/share/atl                     \
+	/usr/local/lib64/libnb-qemu        \
+	/usr/local/share/libnb-qemu-guest
 
 # This application needs a ssl/certs/java/cacerts file
 # It first looks in /etc/ssl/certs/java/cacerts
