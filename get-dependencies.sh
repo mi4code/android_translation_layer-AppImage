@@ -36,7 +36,17 @@ sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.arch
 yay -S --noconfirm android_translation_layer-git
 EOF
 
-
+git clone https://gitlab.com/android_translation_layer/qemu-based-native-bridge/nb-qemu
+cd nb-qemu
+# clone qemu submodule (unles you used --recurse-submodules)
+git submodule update --init --recursive
+# compile qemu fork
+cd qemu
+mkdir _build && cd _build
+../configure --disable-werror --target-list=aarch64-linux-user --disable-system
+# compile the various native bridge parts
+make
+sudo make install
 
 
 #make-aur-package --chaotic-aur android_translation_layer-git
