@@ -26,7 +26,7 @@ quick-sharun \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
 	/usr/share/atl                     \
-	/usr/local/lib64/libnb-qemu        \
+	/usr/local/lib64                   \
 	/usr/local/share/libnb-qemu-guest
 
 # This application needs a ssl/certs/java/cacerts file
