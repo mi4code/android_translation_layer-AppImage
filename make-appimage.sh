@@ -26,9 +26,8 @@ quick-sharun \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
 	/usr/share/atl                     \
-	/usr/local/lib64                   \
 	/usr/local/share/libnb-qemu-guest
-
+#	/usr/local/lib64                   \
 # This application needs a ssl/certs/java/cacerts file
 # It first looks in /etc/ssl/certs/java/cacerts
 # if the file is not there it then looks in XDG_DATA_DIRS
