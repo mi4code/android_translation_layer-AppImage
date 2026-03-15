@@ -38,8 +38,9 @@ sudo pacman -S --noconfirm --needed wget git base-devel && git clone https://aur
 yay -S --noconfirm dpkg
 wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl5_5.1.0-6+b1_arm64.deb
 wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl-dev_5.1.0-6+b1_arm64.deb
-sudo dpkg -i libvixl5_*.deb
-sudo dpkg -i libvixl-dev_*.deb
+sudo dpkg --force-depends --install libvixl5_*.deb
+sudo dpkg --force-depends --install libvixl-dev_*.deb
+sudo dpkg --configure -a
 
 # build without skia (no longer dependency, but still required by the aur package)
 #yay -S --noconfirm android_translation_layer-git
