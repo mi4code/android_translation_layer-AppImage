@@ -41,6 +41,11 @@ wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl-dev_5.1.0-6+b1_arm
 sudo dpkg --force-depends --install libvixl5_*.deb
 sudo dpkg --force-depends --install libvixl-dev_*.deb
 sudo dpkg --configure -a
+echo "-----lib:"
+ls /usr/lib/*vixl*
+echo "-----lib-aarch:"
+ls /usr/lib/aarch64-linux-gnu/*vixl*
+sudo cp /usr/lib/aarch64-linux-gnu/*vixl* /usr/lib/
 
 # build without skia (no longer dependency, but still required by the aur package)
 #yay -S --noconfirm android_translation_layer-git
