@@ -32,9 +32,26 @@ sudo pacman -S --noconfirm go
 # build yay as the builder user
 sudo -u builder bash <<'EOF'
 cd /home/builder
-sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
-yay -S --noconfirm skia-sharp-atl-git
-yay -S --noconfirm android_translation_layer-git
+sudo pacman -S --noconfirm --needed wget git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+
+# install libvixl (use debian as source since not availible on arch; needed on arm)
+yay -S --noconfirm dpkg
+wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl5_5.1.0-6+b1_arm64.deb
+wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl-dev_5.1.0-6+b1_arm64.deb
+sudo dpkg -i libvixl5_*.deb
+sudo dpkg -i libvixl-dev_*.deb
+
+# build without skia (no longer dependency, but still required by the aur package)
+#yay -S --noconfirm android_translation_layer-git
+yay -S --noconfirm \
+  art_standalone \
+  bionic_translation \
+  libopensles-standalone 
+yay -G android_translation_layer-git
+cd android_translation_layer-git
+sed -i '/skia-sharp-atl/d' PKGBUILD
+makepkg -si --noconfirm
+
 EOF
 
 
