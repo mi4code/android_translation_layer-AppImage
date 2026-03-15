@@ -33,8 +33,14 @@ sudo pacman -S --noconfirm go
 sudo -u builder bash <<'EOF'
 cd /home/builder
 sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
-yay -S --noconfirm skia-sharp-atl-git
-yay -S --noconfirm android_translation_layer-git
+
+# build without skia
+#yay -S --noconfirm android_translation_layer-git
+yay -G android_translation_layer-git
+cd android_translation_layer-git
+sed -i '/skia-sharp-atl/d' PKGBUILD
+makepkg -si --noconfirm
+
 EOF
 
 
