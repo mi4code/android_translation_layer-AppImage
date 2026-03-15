@@ -36,6 +36,10 @@ sudo pacman -S --noconfirm --needed git base-devel && git clone https://aur.arch
 
 # build without skia
 #yay -S --noconfirm android_translation_layer-git
+yay -S --noconfirm \
+  art_standalone \
+  bionic_translation \
+  libopensles-standalone 
 yay -G android_translation_layer-git
 cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
