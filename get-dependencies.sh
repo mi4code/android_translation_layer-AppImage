@@ -22,6 +22,11 @@ echo "---------------------------------------------------------------"
 #sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
 sudo pacman -Syy --noconfirm
 
+sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
 # create a non-root user for building AUR packages
 sudo useradd -m builder
 sudo passwd -d builder
@@ -56,7 +61,7 @@ yay -S --noconfirm \
 yay -G android_translation_layer-git
 cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
-JAVA_TOOL_OPTIONS="-Xmx8G" _JAVA_OPTIONS="-Xmx8G" MAKEFLAGS="-j1 -l1" makepkg -si --noconfirm
+makepkg -si --noconfirm
 free -m
 EOF
 
