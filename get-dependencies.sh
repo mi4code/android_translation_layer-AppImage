@@ -56,10 +56,9 @@ yay -S --noconfirm \
 yay -G android_translation_layer-git
 cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
-makepkg -si --noconfirm
+_JAVA_OPTIONS="-Xmx4G" makepkg -si --noconfirm -j2 -l1
 
 EOF
-
 
 
 
