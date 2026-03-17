@@ -43,6 +43,8 @@ sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so /usr/lib/libvixl.so
 sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5 /usr/lib/libvixl.so.5
 sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5.1.0 /usr/lib/libvixl.so.5.1.0
 
+sudo pacman -S --noconfirm jdk21-openjdk
+
 # build without skia (no longer dependency, but still required by the aur package and wont build)
 #yay -S --noconfirm android_translation_layer-git
 yay -S --noconfirm \
