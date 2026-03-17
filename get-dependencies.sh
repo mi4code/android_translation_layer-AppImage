@@ -46,8 +46,11 @@ ls /usr/lib/*vixl*
 echo "-----lib-aarch:"
 ls /usr/lib/aarch64-linux-gnu/*vixl*
 #sudo cp /usr/lib/aarch64-linux-gnu/*vixl* /usr/lib/
-echo "/usr/lib/aarch64-linux-gnu" | sudo tee /etc/ld.so.conf.d/vixl.conf
-sudo ldconfig
+#echo "/usr/lib/aarch64-linux-gnu" | sudo tee /etc/ld.so.conf.d/vixl.conf
+#sudo ldconfig
+sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so /usr/lib/libvixl.so
+sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5 /usr/lib/libvixl.so.5
+sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5.1.0 /usr/lib/libvixl.so.5.1.0
 
 # build without skia (no longer dependency, but still required by the aur package)
 #yay -S --noconfirm android_translation_layer-git
