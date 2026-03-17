@@ -22,11 +22,6 @@ echo "---------------------------------------------------------------"
 #sudo pacman -S --noconfirm chaotic-keyring chaotic-mirrorlist
 sudo pacman -Syy --noconfirm
 
-sudo fallocate -l 8G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-
 # create a non-root user for building AUR packages
 sudo useradd -m builder
 sudo passwd -d builder
@@ -50,7 +45,9 @@ echo "-----lib:"
 ls /usr/lib/*vixl*
 echo "-----lib-aarch:"
 ls /usr/lib/aarch64-linux-gnu/*vixl*
-sudo cp /usr/lib/aarch64-linux-gnu/*vixl* /usr/lib/
+#sudo cp /usr/lib/aarch64-linux-gnu/*vixl* /usr/lib/
+echo "/usr/lib/aarch64-linux-gnu" | sudo tee /etc/ld.so.conf.d/vixl.conf
+sudo ldconfig
 
 # build without skia (no longer dependency, but still required by the aur package)
 #yay -S --noconfirm android_translation_layer-git
@@ -62,7 +59,6 @@ yay -G android_translation_layer-git
 cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
 makepkg -si --noconfirm
-free -m
 EOF
 
 
