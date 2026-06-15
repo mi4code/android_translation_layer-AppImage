@@ -51,8 +51,8 @@ sudo pacman -S --noconfirm jdk21-openjdk sdl3
 # build without skia (no longer dependency, but still required by the aur package and wont build)
 #yay -S --noconfirm android_translation_layer-git
 yay -S --noconfirm \
-  art_standalone \
   bionic_translation-git \
+  art_standalone-git \
   libopensles-standalone-git 
 yay -G android_translation_layer-git
 cd android_translation_layer-git
