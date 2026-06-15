@@ -32,16 +32,18 @@ cd /home/builder
 # build yay
 sudo pacman -S --noconfirm --needed go wget git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
 
-# install libvixl (use debian as source cos not availible on arch; needed on arm)
-yay -S --noconfirm dpkg
-wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl5_5.1.0-6+b1_arm64.deb
-wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl-dev_5.1.0-6+b1_arm64.deb
-sudo dpkg --force-depends --install libvixl5_*.deb
-sudo dpkg --force-depends --install libvixl-dev_*.deb
-sudo dpkg --configure -a
-sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so /usr/lib/libvixl.so
-sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5 /usr/lib/libvixl.so.5
-sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5.1.0 /usr/lib/libvixl.so.5.1.0
+# install libvixl (use debian as source cos not availible on arch/aur; needed only on arm64)
+if [ "$(uname -m)" = "aarch64" ]; then
+  yay -S --noconfirm dpkg
+  wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl5_5.1.0-6+b1_arm64.deb
+  wget http://ftp.de.debian.org/debian/pool/main/v/vixl/libvixl-dev_5.1.0-6+b1_arm64.deb
+  sudo dpkg --force-depends --install libvixl5_*.deb
+  sudo dpkg --force-depends --install libvixl-dev_*.deb
+  sudo dpkg --configure -a
+  sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so /usr/lib/libvixl.so
+  sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5 /usr/lib/libvixl.so.5
+  sudo ln -s /usr/lib/aarch64-linux-gnu/libvixl.so.5.1.0 /usr/lib/libvixl.so.5.1.0
+fi
 
 # install this java (otherwise arm build fails with 'java.lang.OutOfMemoryError: Java heap space') + install sdl3 (optional dependency for running some apks)
 sudo pacman -S --noconfirm jdk21-openjdk sdl3
