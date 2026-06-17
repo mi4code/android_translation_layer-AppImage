@@ -59,6 +59,15 @@ cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
 makepkg -si --noconfirm
 
+# build and install nb-qemu atl native bridge
+git clone https://gitlab.com/mi4code/nb-qemu
+cd nb-qemu
+git submodule update --init --recursive
+sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
+make PREFIX=/usr/
+cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
+sudo make install
+
 EOF
 
 #make-aur-package --chaotic-aur android_translation_layer-git
