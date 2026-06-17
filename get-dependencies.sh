@@ -60,6 +60,7 @@ sed -i '/skia-sharp-atl/d' PKGBUILD
 makepkg -si --noconfirm
 
 # build and install nb-qemu atl native bridge
+sudo pacman -S capstone
 git clone https://gitlab.com/mi4code/nb-qemu
 cd nb-qemu
 git submodule update --init --recursive
