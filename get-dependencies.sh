@@ -68,6 +68,13 @@ make PREFIX=/usr/
 cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
 sudo make install
 
+# create helper script
+sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EOF'
+#!/usr/bin/bash
+NB_QEMU_SYSROOT=/usr/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X '-XX:NativeBridge=/usr/lib/libnb-qemu.so'
+EOF
+sudo chmod +x /usr/bin/android-translation-layer-nb
+
 EOF
 
 #make-aur-package --chaotic-aur android_translation_layer-git
