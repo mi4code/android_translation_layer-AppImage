@@ -69,10 +69,10 @@ cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-G
 sudo make install
 
 # create helper script
-sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EOF'
+sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EF'
 #!/usr/bin/bash
 NB_QEMU_SYSROOT=/usr/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X '-XX:NativeBridge=/usr/lib/libnb-qemu.so'
-EOF
+EF
 sudo chmod +x /usr/bin/android-translation-layer-nb
 
 EOF
