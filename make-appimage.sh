@@ -17,6 +17,8 @@ export PATH_MAPPING='/usr/bin/addr2line:${SHARUN_DIR}/bin/addr2line'
 
 # extra atl libs for libnb-qemu.so
 export SHARUN_FALLBACK_LIBRARY_PATH='/usr/lib/art'
+export SHARUN_EXTRA_LIBRARY_PATH='/usr/lib/art'
+export LD_LIBRARY_PATH='/usr/lib/art'
 
 # Deploy dependencies
 quick-sharun \
