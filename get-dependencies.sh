@@ -67,7 +67,7 @@ git submodule update --init --recursive
 sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
 make PREFIX=/usr/
 cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
-sudo make install
+sudo make PREFIX=/usr/ install
 
 # create helper script
 sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EF'
