@@ -28,7 +28,8 @@ quick-sharun \
 	/usr/share/atl                     \
 	#/usr/lib/libnb-qemu.so*            \
 	/usr/lib/libnb-qemu-thunks         \
-	/usr/share/libnb-qemu-guest        \	
+	/usr/share/libnb-qemu-guest        \
+	/usr/bin/android-translation-layer-nb \
 	/usr/lib/libSDL3*
 
 # This application needs a ssl/certs/java/cacerts file
