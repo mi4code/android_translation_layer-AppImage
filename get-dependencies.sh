@@ -72,7 +72,7 @@ sudo make PREFIX=/usr/ install
 # create helper script
 sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EF'
 #!/usr/bin/bash
-NB_QEMU_SYSROOT=/usr/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X '-XX:NativeBridge=/usr/lib/libnb-qemu.so'
+NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
 EF
 sudo chmod +x /usr/bin/android-translation-layer-nb
 
