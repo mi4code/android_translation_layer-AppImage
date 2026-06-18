@@ -15,6 +15,9 @@ export ICON="https://gitlab.com/android_translation_layer/android_translation_la
 # something hardcodes /usr/bin/addr2line
 export PATH_MAPPING='/usr/bin/addr2line:${SHARUN_DIR}/bin/addr2line'
 
+# extra atl libs for libnb-qemu.so
+export SHARUN_FALLBACK_LIBRARY_PATH='/usr/lib/art'
+
 # Deploy dependencies
 quick-sharun \
 	/usr/bin/android-translation-layer \
@@ -26,6 +29,7 @@ quick-sharun \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
 	/usr/share/atl                     \
+	/usr/lib/libnb-qemu.so*            \
 	/usr/lib/libnb-qemu-thunks         \
 	/usr/share/libnb-qemu-guest        \
 	/usr/bin/android-translation-layer-nb \
@@ -43,7 +47,6 @@ quick-sharun \
 # * Ubuntu     No idea! Looks like there is no Java KeyStore by default!
 mkdir -p ./AppDir/share/ssl/certs/java
 cp -v /etc/ca-certificates/extracted/java-cacerts.jks ./AppDir/share/ssl/certs/java/cacerts
-cp -v /usr/lib/libnb-qemu.so ./AppDir/lib
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
