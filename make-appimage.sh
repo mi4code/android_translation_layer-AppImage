@@ -13,7 +13,10 @@ export DEPLOY_PIPEWIRE=1
 export ICON="https://gitlab.com/android_translation_layer/android_translation_layer/-/raw/master/doc/logo.svg"
 
 # something hardcodes /usr/bin/addr2line
-export PATH_MAPPING='/usr/bin/addr2line:${SHARUN_DIR}/bin/addr2line'
+export PATH_MAPPING='
+	/usr/bin/addr2line:${SHARUN_DIR}/bin/addr2line
+	/usr/lib:${SHARUN_DIR}/lib
+'
 
 # extra atl libs for libnb-qemu.so
 export SHARUN_FALLBACK_LIBRARY_PATH='/usr/lib/art'
