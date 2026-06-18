@@ -26,7 +26,7 @@ quick-sharun \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
 	/usr/share/atl                     \
-	/usr/lib/libnb-qemu.so*            \
+	#/usr/lib/libnb-qemu.so*            \
 	/usr/lib/libnb-qemu-thunks         \
 	/usr/share/libnb-qemu-guest        \	
 	/usr/lib/libSDL3*
@@ -43,6 +43,7 @@ quick-sharun \
 # * Ubuntu     No idea! Looks like there is no Java KeyStore by default!
 mkdir -p ./AppDir/share/ssl/certs/java
 cp -v /etc/ca-certificates/extracted/java-cacerts.jks ./AppDir/share/ssl/certs/java/cacerts
+cp -v /usr/lib/libnb-qemu.so ./AppDir/lib
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
