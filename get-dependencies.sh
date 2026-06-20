@@ -71,7 +71,7 @@ cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-G
 sudo make PREFIX=/usr/ install
 # (not sure why, but this is the correct libc that works) 
 sudo rm /usr/share/libnb-qemu-guest/libc.so
-sudo cp ./libnb-qemu-guest/sysroot/lib.c /usr/share/libnb-qemu-guest
+sudo cp ./libnb-qemu-guest/sysroot/libc.so /usr/share/libnb-qemu-guest
 
 # create helper script
 sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EF'
