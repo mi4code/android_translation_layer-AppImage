@@ -11,7 +11,6 @@ export DEPLOY_OPENGL=1
 export DEPLOY_GSTREAMER=1
 export DEPLOY_PIPEWIRE=1
 export ICON="https://gitlab.com/android_translation_layer/android_translation_layer/-/raw/master/doc/logo.svg"
-export NO_STRIP=1
 
 # something hardcodes /usr/bin/addr2line
 export PATH_MAPPING='/usr/bin/addr2line:${SHARUN_DIR}/bin/addr2line'
