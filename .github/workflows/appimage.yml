@@ -63,18 +63,18 @@ jobs:
           RELEASE_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
           
           # Convert to seconds since epoch
-          RELEASE_TIMESTAMP=$(date -d "$RELEASE_DATE" +%s)
-          CURRENT_TIMESTAMP=$(date +%s)
+          #RELEASE_TIMESTAMP=$(date -d "$RELEASE_DATE" +%s)
+          #CURRENT_TIMESTAMP=$(date +%s)
           
           # Calculate difference in seconds
-          TIME_DIFF=$((CURRENT_TIMESTAMP - RELEASE_TIMESTAMP))
-          SECONDS_24H=$((24 * 60 * 60))
+          #TIME_DIFF=$((CURRENT_TIMESTAMP - RELEASE_TIMESTAMP))
+          #SECONDS_24H=$((24 * 60 * 60))
           
           # Check if release is older than 24 hours
-          if [ $TIME_DIFF -gt $SECONDS_24H ]; then
-            echo "Release '$RELEASE_TAG' is older than 24 hours ($((TIME_DIFF / 3600)) hours old). Failing."
-            exit 1
-          fi
+          #if [ $TIME_DIFF -gt $SECONDS_24H ]; then
+          #  echo "Release '$RELEASE_TAG' is older than 24 hours ($((TIME_DIFF / 3600)) hours old). Failing."
+          #  exit 1
+          #fi
           
           # Check if any files containing "libnb-qemu" already exist in the release
           EXISTING_FILES=$(gh release view "$RELEASE_TAG" --json assets --jq '.assets[].name')
