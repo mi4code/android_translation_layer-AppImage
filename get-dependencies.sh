@@ -26,7 +26,7 @@ sudo passwd -d builder
 echo "builder ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/builder
 
 # run as the builder user
-sudo -u builder bash <<'EOF'
+sudo -u builder BUILD_NB="$BUILD_NB" bash <<'EOF'
 cd /home/builder
 
 # build yay
