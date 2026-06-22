@@ -21,7 +21,8 @@ export SHARUN_EXTRA_LIBRARY_PATH='/usr/lib/art'
 export LD_LIBRARY_PATH='/usr/lib/art'
 
 # Deploy dependencies
-quick-sharun \
+if [ "$BUILD_NB" -eq 1 ]; then
+  quick-sharun \
 	/usr/bin/android-translation-layer \
 	/usr/bin/addr2line                 \
 	/usr/bin/dex2oat                   \
@@ -34,8 +35,22 @@ quick-sharun \
 	/usr/lib/libnb-qemu.so*            \
 	/usr/lib/libnb-qemu-thunks         \
 	/usr/share/libnb-qemu-guest        \
-	/usr/bin/android-translation-layer-nb \
+	/usr/bin/android-translation-layer-script \
 	/usr/lib/libSDL3*
+else
+  quick-sharun \
+	/usr/bin/android-translation-layer \
+	/usr/bin/addr2line                 \
+	/usr/bin/dex2oat                   \
+	/usr/bin/dalvikvm                  \
+	/usr/bin/dx                        \
+	/usr/lib/libOpenSLES.so*           \
+	/usr/lib/java                      \
+	/usr/lib/art                       \
+	/usr/share/atl                     \
+	/usr/bin/android-translation-layer-script \
+	/usr/lib/libSDL3*
+fi
 
 # This application needs a ssl/certs/java/cacerts file
 # It first looks in /etc/ssl/certs/java/cacerts
