@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Android Translation Layer
-Exec=android-translation-layer-nb
+Exec=android-translation-layer-script
 Comment=A translation layer that allows running Android apps on a Linux system
 StartupWMClass=android-translation-layer
 Type=Application
