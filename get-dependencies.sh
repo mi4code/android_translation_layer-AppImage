@@ -60,25 +60,34 @@ sed -i '/skia-sharp-atl/d' PKGBUILD
 makepkg -si --noconfirm
 
 # build and install nb-qemu atl native bridge
-sudo pacman -S --noconfirm capstone clang lld
-git clone https://gitlab.com/mi4code/nb-qemu
-cd nb-qemu
-git submodule update --init --recursive
-sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
-make PREFIX=/usr/
-# (as we cant build gles1, we need to somehow replace it to avoid errors, this works just perfectly)
-cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
-sudo make PREFIX=/usr/ install
-# (not sure why, but this is the correct libc that works) 
-sudo rm /usr/share/libnb-qemu-guest/libc.so
-sudo cp ./libnb-qemu-guest/sysroot/libc.so /usr/share/libnb-qemu-guest
+if [ "$(uname -m)" = "x86_64" ] && [ "$BUILD_NB" -eq 1 ]; then
+  sudo pacman -S --noconfirm capstone clang lld
+  git clone https://gitlab.com/mi4code/nb-qemu
+  cd nb-qemu
+  git submodule update --init --recursive
+  sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
+  make PREFIX=/usr/
+  # (as we cant build gles1, we need to somehow replace it to avoid errors, this works just perfectly)
+  cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
+  sudo make PREFIX=/usr/ install
+  # (not sure why, but this is the correct libc that works) 
+  sudo rm /usr/share/libnb-qemu-guest/libc.so
+  sudo cp ./libnb-qemu-guest/sysroot/libc.so /usr/share/libnb-qemu-guest
+fi
 
 # create helper script
-sudo tee /usr/bin/android-translation-layer-nb > /dev/null << 'EF'
-#!/usr/bin/bash
-NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
-EF
-sudo chmod +x /usr/bin/android-translation-layer-nb
+if [ "$(uname -m)" = "x86_64" ] && [ "$BUILD_NB" -eq 1 ]; then
+  sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
+  #!/usr/bin/bash
+  NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
+  EF
+else
+  sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
+  #!/usr/bin/bash
+  android-translation-layer "$@"
+  EF
+fi
+sudo chmod +x /usr/bin/android-translation-layer-script
 
 EOF
 
