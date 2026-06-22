@@ -53,7 +53,7 @@ sudo pacman -S --noconfirm jdk21-openjdk sdl3
 yay -S --noconfirm \
   bionic_translation-git \
   art_standalone-git \
-  libopensles-standalone-git 
+  libopensles-standalone-git
 yay -G android_translation_layer-git
 cd android_translation_layer-git
 sed -i '/skia-sharp-atl/d' PKGBUILD
@@ -78,14 +78,14 @@ fi
 # create helper script
 if [ "$BUILD_NB" -eq 1 ]; then
   sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
-  #!/usr/bin/bash
-  NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
-  EF
+#!/usr/bin/bash
+NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
+EF
 else
-  sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
-  #!/usr/bin/bash
-  android-translation-layer "$@"
-  EF
+sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
+#!/usr/bin/bash
+android-translation-layer "$@"
+EF
 fi
 sudo chmod +x /usr/bin/android-translation-layer-script
 
