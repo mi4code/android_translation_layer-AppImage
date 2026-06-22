@@ -60,7 +60,7 @@ sed -i '/skia-sharp-atl/d' PKGBUILD
 makepkg -si --noconfirm
 
 # build and install nb-qemu atl native bridge
-if [ "$(uname -m)" = "x86_64" ] && [ "$BUILD_NB" -eq 1 ]; then
+if [ "$BUILD_NB" -eq 1 ]; then
   sudo pacman -S --noconfirm capstone clang lld
   git clone https://gitlab.com/mi4code/nb-qemu
   cd nb-qemu
@@ -76,7 +76,7 @@ if [ "$(uname -m)" = "x86_64" ] && [ "$BUILD_NB" -eq 1 ]; then
 fi
 
 # create helper script
-if [ "$(uname -m)" = "x86_64" ] && [ "$BUILD_NB" -eq 1 ]; then
+if [ "$BUILD_NB" -eq 1 ]; then
   sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
   #!/usr/bin/bash
   NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
