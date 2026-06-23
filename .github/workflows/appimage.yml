@@ -41,6 +41,7 @@ jobs:
       - name: Rename AppImage
         if: ${{ matrix.build-nb == 1 }}
         run: |
+          ls -R
           APPIMAGE_FILE=$(echo dist/AppImage-${{ matrix.arch }}-nb-qemu/*.AppImage)
           ZSYNC_FILE=$(echo dist/AppImage-${{ matrix.arch }}-nb-qemu/*.AppImage.zsync)
           mv "$APPIMAGE_FILE" "dist/AppImage-${{ matrix.arch }}-nb-qemu/$(basename "$APPIMAGE_FILE" .AppImage)-nb-qemu.AppImage"
