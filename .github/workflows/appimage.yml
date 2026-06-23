@@ -38,6 +38,13 @@ jobs:
         run: /bin/sh ./get-dependencies.sh
       - name: Make AppImage
         run: /bin/sh ./make-appimage.sh
+      - name: Rename AppImage
+        if: ${{ matrix.build-nb == 1 }}
+        run: |
+          APPIMAGE_FILE=$(echo dist/AppImage-${{ matrix.arch }}-nb-qemu/*.AppImage)
+          ZSYNC_FILE=$(echo dist/AppImage-${{ matrix.arch }}-nb-qemu/*.AppImage.zsync)
+          mv "$APPIMAGE_FILE" "dist/AppImage-${{ matrix.arch }}-nb-qemu/$(basename "$APPIMAGE_FILE" .AppImage)-nb-qemu.AppImage"
+          mv "$ZSYNC_FILE" "dist/AppImage-${{ matrix.arch }}-nb-qemu/$(basename "$ZSYNC_FILE" .AppImage.zsync)-nb-qemu.AppImage.zsync"
       - name: Upload artifact
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
