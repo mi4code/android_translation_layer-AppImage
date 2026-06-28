@@ -62,7 +62,7 @@ makepkg -si --noconfirm
 # build and install nb-qemu atl native bridge
 if [ "$BUILD_NB" -eq 1 ]; then
   sudo pacman -S --noconfirm capstone clang lld
-  git clone https://gitlab.com/mi4code/nb-qemu
+  git clone https://gitlab.com/android_translation_layer/qemu-based-native-bridge/nb-qemu
   cd nb-qemu
   git submodule update --init --recursive
   sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
@@ -70,9 +70,6 @@ if [ "$BUILD_NB" -eq 1 ]; then
   # (as we cant build gles1, we need to somehow replace it to avoid errors, this works just perfectly)
   cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
   sudo make PREFIX=/usr/ install
-  # (not sure why, but this is the correct libc that works) 
-  sudo rm /usr/share/libnb-qemu-guest/libc.so
-  sudo cp ./libnb-qemu-guest/sysroot/libc.so /usr/share/libnb-qemu-guest
 fi
 
 # create helper script
