@@ -61,7 +61,7 @@ makepkg -si --noconfirm
 
 # build and install nb-qemu atl native bridge
 if [ "$BUILD_NB" -eq 1 ]; then
-  sudo pacman -S --noconfirm capstone clang lld
+  sudo pacman -S --noconfirm capstone clang lld aarch64-linux-gnu-gcc
   git clone https://gitlab.com/android_translation_layer/qemu-based-native-bridge/nb-qemu
   cd nb-qemu
   git submodule update --init --recursive
