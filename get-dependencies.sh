@@ -88,10 +88,10 @@ sudo chmod +x /usr/bin/android-translation-layer-script
 ls -R ~/.cache/yay
 pwd
 echo "Sources:" > ~/SOURCES.md
-echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/src/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
-echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/src/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
-echo " - bionic_translation: \`$(git -C ~/.cache/yay/bionic_translation-git/src/bionic_translation rev-parse --short HEAD)\`" >> ~/SOURCES.md
-echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-git/src/libopensles-standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - bionic_translation: \`$(git -C ~/.cache/yay/bionic_translation-git/bionic_translation rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-git/libopensles-standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
 if [ "$BUILD_NB" -eq 1 ]; then
   echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
 fi
