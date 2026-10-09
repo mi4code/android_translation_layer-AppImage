@@ -66,7 +66,7 @@ mkdir -p ./AppDir/share/ssl/certs/java
 cp -v /etc/ca-certificates/extracted/java-cacerts.jks ./AppDir/share/ssl/certs/java/cacerts
 
 # Include version report
-cp $OUTPATH/SOURCES.md ./AppDir
+cp ~/SOURCES.md ./AppDir
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
