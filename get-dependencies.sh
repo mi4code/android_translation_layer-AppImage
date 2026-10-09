@@ -51,13 +51,10 @@ sudo pacman -S --noconfirm jdk21-openjdk sdl3
 # build without skia (no longer dependency, but still required by the aur package and wont build)
 #yay -S --noconfirm android_translation_layer-git
 yay -S --noconfirm \
-  bionic_translation-git \
   art_standalone-git \
-  libopensles-standalone-git
-yay -G android_translation_layer-git
-cd android_translation_layer-git
-sed -i '/skia-sharp-atl/d' PKGBUILD
-makepkg -si --noconfirm
+  bionic_translation-git \
+  libopensles-standalone-git \
+  android_translation_layer-git
 
 # build and install nb-qemu atl native bridge
 if [ "$BUILD_NB" -eq 1 ]; then
@@ -79,13 +76,22 @@ if [ "$BUILD_NB" -eq 1 ]; then
 NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
 EF
 else
-sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
+  sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
 #!/usr/bin/bash
 android-translation-layer "$@"
 EF
 fi
 sudo chmod +x /usr/bin/android-translation-layer-script
 
-EOF
+# write version report
+ls  ~/.cache/yay
+echo "Sources:" > ~/SOURCES.md
+echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/src/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/src/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - bionic_translation: \`$(git -C ~/.cache/yay/bionic_translation-git/src/bionic_translation rev-parse --short HEAD)\`" >> ~/SOURCES.md
+echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-git/src/libopensles-standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
+if [ "$BUILD_NB" -eq 1 ]; then
+  echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
+fi
 
-#make-aur-package --chaotic-aur android_translation_layer-git
+EOF
