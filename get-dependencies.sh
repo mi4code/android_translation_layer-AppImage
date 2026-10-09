@@ -67,6 +67,7 @@ if [ "$BUILD_NB" -eq 1 ]; then
   # (as we cant build gles1, we need to somehow replace it to avoid errors, this works just perfectly)
   cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
   sudo make PREFIX=/usr/ install
+  cd ..
 fi
 
 # create helper script
@@ -93,5 +94,6 @@ echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-
 if [ "$BUILD_NB" -eq 1 ]; then
   echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
 fi
+cp ~/SOURCES.md ./dist
 
 EOF
