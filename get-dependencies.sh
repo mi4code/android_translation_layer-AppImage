@@ -85,7 +85,8 @@ fi
 sudo chmod +x /usr/bin/android-translation-layer-script
 
 # write version report
-ls  ~/.cache/yay
+ls -R ~/.cache/yay
+pwd
 echo "Sources:" > ~/SOURCES.md
 echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/src/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
 echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/src/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
@@ -94,6 +95,5 @@ echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-
 if [ "$BUILD_NB" -eq 1 ]; then
   echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
 fi
-cp ~/SOURCES.md ./dist
 
 EOF
