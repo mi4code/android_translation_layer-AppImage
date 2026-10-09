@@ -30,7 +30,7 @@ sudo -u builder BUILD_NB="$BUILD_NB" bash <<'EOF'
 cd /home/builder
 
 # build yay
-sudo pacman -S --noconfirm --needed go wget git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+sudo pacman -S --noconfirm --needed go wget git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd ..
 
 # install libvixl (use debian as source cos not availible on arch/aur; needed only on arm64)
 if [ "$(uname -m)" = "aarch64" ]; then
@@ -85,8 +85,6 @@ fi
 sudo chmod +x /usr/bin/android-translation-layer-script
 
 # write version report
-ls -R ~/.cache/yay
-pwd
 echo "Sources:" > ~/SOURCES.md
 echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
 echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
@@ -95,5 +93,6 @@ echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-
 if [ "$BUILD_NB" -eq 1 ]; then
   echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
 fi
+cat ~/SOURCES.md
 
 EOF
