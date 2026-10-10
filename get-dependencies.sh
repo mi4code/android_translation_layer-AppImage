@@ -187,6 +187,7 @@ sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
 #!/usr/bin/bash
 NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
 EF
+sudo chmod +x /usr/bin/android-translation-layer-script
 
 # java 8 is only needed to build, get rid of it so that the resulting
 # AppImage does not bundle the wrong java runtime
