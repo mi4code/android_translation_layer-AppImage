@@ -85,7 +85,7 @@ fi
 sudo chmod +x /usr/bin/android-translation-layer-script
 
 # write version report
-echo "Sources:" > ~/SOURCES.md
+echo "**Sources:**" > ~/SOURCES.md
 echo " - android_translation_layer: \`$(git -C ~/.cache/yay/android_translation_layer-git/android_translation_layer rev-parse --short HEAD)\`" >> ~/SOURCES.md
 echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/art_standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
 echo " - bionic_translation: \`$(git -C ~/.cache/yay/bionic_translation-git/bionic_translation rev-parse --short HEAD)\`" >> ~/SOURCES.md
