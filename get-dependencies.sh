@@ -39,7 +39,12 @@ pacman -Syu --noconfirm \
 	webkitgtk-6.0     \
 	xz                \
 	zlib              \
-	zip
+	zip               \
+	base-devel        \
+	clang             \
+	capstone          \
+	lld               \
+	aarch64-linux-gnu-gcc
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
@@ -151,6 +156,21 @@ build_art_standalone() (
 	make ____PREFIX=/usr ____INSTALL_ETC=/etc ____LIBDIR=lib install
 )
 
+build_nb_qemu() (
+	echo "Building $ATL_SOURCE/qemu-based-native-bridge/nb-qemu..."
+	echo "---------------------------------------------------------------"
+	git clone "$ATL_SOURCE/qemu-based-native-bridge/nb-qemu" ./nb-qemu
+	cd ./nb-qemu
+
+	git submodule update --init --recursive
+	make PREFIX=/usr/
+	
+	# we cant build gles1 thus we need to somehow replace it to avoid errors (this works just perfectly)
+	cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
+	
+	make PREFIX=/usr/ install
+)
+
 # art_standalone requires wolfssl and bionic_translation
 if [ "$ARCH" = 'aarch64' ]; then
 	build_vixl
@@ -160,6 +180,13 @@ build_meson_bin bionic_translation
 build_art_standalone
 build_meson_bin libopensles-standalone
 build_meson_bin android_translation_layer
+build_nb_qemu
+
+# create helper script
+sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
+#!/usr/bin/bash
+NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
+EF
 
 # java 8 is only needed to build, get rid of it so that the resulting
 # AppImage does not bundle the wrong java runtime
