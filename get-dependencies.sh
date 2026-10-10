@@ -91,7 +91,7 @@ echo " - art_standalone: \`$(git -C ~/.cache/yay/art_standalone-git/art_standalo
 echo " - bionic_translation: \`$(git -C ~/.cache/yay/bionic_translation-git/bionic_translation rev-parse --short HEAD)\`" >> ~/SOURCES.md
 echo " - libopensles-standalone: \`$(git -C ~/.cache/yay/libopensles-standalone-git/libopensles-standalone rev-parse --short HEAD)\`" >> ~/SOURCES.md
 if [ "$BUILD_NB" -eq 1 ]; then
-  echo " - android_translation_layer: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
+  echo " - nb-qemu: \`$(git -C ~/nb-qemu rev-parse --short HEAD)\`" >> ~/SOURCES.md
 fi
 cat ~/SOURCES.md
 
