@@ -163,6 +163,7 @@ build_nb_qemu() (
 	cd ./nb-qemu
 
 	git submodule update --init --recursive
+	sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
 	make PREFIX=/usr/
 	
 	# we cant build gles1 thus we need to somehow replace it to avoid errors (this works just perfectly)
