@@ -21,7 +21,11 @@ quick-sharun \
 	/usr/lib/libOpenSLES.so*           \
 	/usr/lib/java                      \
 	/usr/lib/art                       \
-	/usr/share/atl
+	/usr/share/atl                     \
+	/usr/lib/libnb-qemu.so*            \
+	/usr/lib/libnb-qemu-thunks         \
+	/usr/share/libnb-qemu-guest        \
+	/usr/bin/android-translation-layer-script
 echo 'ATL_APP_LAUNCHER=$APPIMAGE' >> ./AppDir/.env
 
 # Turn AppDir into AppImage
