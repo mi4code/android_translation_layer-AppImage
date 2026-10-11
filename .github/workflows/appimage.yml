@@ -61,6 +61,19 @@ jobs:
         with:
           pattern: AppImage-*
           merge-multiple: true
-      - run: coproc M { "./*-nb-qemu.AppImage" --appimage-mount; }; read -r mnt <&"${M[0]}"; cat "$mnt/SOURCES.md" >> $GITHUB_OUTPUT ; kill "$M_PID"; wait "$M_PID" 2>/dev/null  # (should check that all artifacts were made from same sources)
       - name: Release AppImage
         uses: pkgforge-dev/make-stable-appimage-release@4ed3d48ccb065352b6e6c0db6d39885b201c54a0 #v1.1
+      - name: Set release description
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${VERSION}@${DATE}"
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern '*-nb-qemu.AppImage' --dir "$RUNNER_TEMP"
+          APPIMAGE=$(echo "$RUNNER_TEMP"/*-nb-qemu.AppImage)
+          chmod +x "$APPIMAGE"
+          coproc M { exec "$APPIMAGE" --appimage-mount; }
+          read -r mnt <&"${M[0]}"
+          cp "$mnt/SOURCES.md" "$RUNNER_TEMP/SOURCES.md"
+          kill "$M_PID"
+          wait "$M_PID" 2>/dev/null || true
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --notes-file "$RUNNER_TEMP/SOURCES.md"
