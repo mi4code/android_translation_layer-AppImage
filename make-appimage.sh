@@ -11,6 +11,11 @@ export DEPLOY_GSTREAMER=1
 export DEPLOY_PIPEWIRE=1
 export ICON="https://gitlab.com/android_translation_layer/android_translation_layer/-/raw/master/doc/logo.svg"
 
+# extra atl libs for libnb-qemu.so (just to fix lookup)
+export SHARUN_FALLBACK_LIBRARY_PATH='/usr/lib/art'
+export SHARUN_EXTRA_LIBRARY_PATH='/usr/lib/art'
+export LD_LIBRARY_PATH='/usr/lib/art'
+
 # Deploy dependencies
 quick-sharun \
 	/usr/bin/android-translation-layer \
