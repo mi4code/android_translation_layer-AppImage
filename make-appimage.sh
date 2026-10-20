@@ -31,7 +31,7 @@ if [ "$BUILD_NB" -eq 1 ]; then
 		/usr/share/atl                     \
 		/usr/lib/libnb-qemu.so*            \
 		/usr/lib/libnb-qemu-thunks         \
-		/usr/share/libnb-qemu-guest        \
+		/usr/share/libnb-qemu-guest
 else
 	quick-sharun \
 		/usr/bin/android-translation-layer \
