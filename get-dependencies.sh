@@ -78,6 +78,11 @@ build_meson_bin() (
 	meson setup build --prefix=/usr --libdir=lib --buildtype=release "$@"
 	meson compile -C build
 	meson install -C build
+
+	if [ "$repo" = 'android_translation_layer' ]; then
+		# allow extra arguments to be added to atl by default (ie. for native bridge)
+		ln -s /usr/bin/android-translation-layer-script "$APPDIR/usr/bin/android-translation-layer"
+	fi
 )
 
 # wolfssl needs to be built with jni support enabled for art_standalone
@@ -164,12 +169,21 @@ build_nb_qemu() (
 
 	git submodule update --init --recursive
 	sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
-	make PREFIX=/usr/
+	make PREFIX=/usr
 	
 	# we cant build gles1 thus we need to somehow replace it to avoid errors (this works just perfectly)
 	cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
 	
-	make PREFIX=/usr/ install
+	make PREFIX=/usr install
+
+	# create helper script
+	rm -f /usr/bin/android-translation-layer-script
+	tee /usr/bin/android-translation-layer-script > /dev/null << 'EOF'
+#!/usr/bin/bash
+NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
+EOF
+	chmod +x /usr/bin/android-translation-layer-script
+
 )
 
 # art_standalone requires wolfssl and bionic_translation
@@ -182,13 +196,6 @@ build_art_standalone
 build_meson_bin libopensles-standalone
 build_meson_bin android_translation_layer
 build_nb_qemu
-
-# create helper script
-sudo tee /usr/bin/android-translation-layer-script > /dev/null << 'EF'
-#!/usr/bin/bash
-NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
-EF
-sudo chmod +x /usr/bin/android-translation-layer-script
 
 # java 8 is only needed to build, get rid of it so that the resulting
 # AppImage does not bundle the wrong java runtime
