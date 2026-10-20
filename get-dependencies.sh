@@ -190,7 +190,9 @@ build_meson_bin bionic_translation
 build_art_standalone
 build_meson_bin libopensles-standalone
 build_meson_bin android_translation_layer
-build_nb_qemu
+if [ "$BUILD_NB" -eq 1 ]; then
+	build_nb_qemu
+fi
 
 # java 8 is only needed to build, get rid of it so that the resulting
 # AppImage does not bundle the wrong java runtime
