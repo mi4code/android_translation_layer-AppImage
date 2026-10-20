@@ -17,20 +17,34 @@ export SHARUN_EXTRA_LIBRARY_PATH='/usr/lib/art'
 export LD_LIBRARY_PATH='/usr/lib/art'
 
 # Deploy dependencies
-quick-sharun \
-	/usr/bin/android-translation-layer \
-	/usr/bin/addr2line                 \
-	/usr/bin/dex2oat                   \
-	/usr/bin/dalvikvm                  \
-	/usr/bin/dx                        \
-	/usr/lib/libOpenSLES.so*           \
-	/usr/lib/java                      \
-	/usr/lib/art                       \
-	/usr/share/atl                     \
-	/usr/lib/libnb-qemu.so*            \
-	/usr/lib/libnb-qemu-thunks         \
-	/usr/share/libnb-qemu-guest        \
-	/usr/bin/android-translation-layer-script
+if [ "$BUILD_NB" -eq 1 ]; then
+	quick-sharun \
+		/usr/bin/android-translation-layer \
+		/usr/bin/android-translation-layer-bin \
+		/usr/bin/addr2line                 \
+		/usr/bin/dex2oat                   \
+		/usr/bin/dalvikvm                  \
+		/usr/bin/dx                        \
+		/usr/lib/libOpenSLES.so*           \
+		/usr/lib/java                      \
+		/usr/lib/art                       \
+		/usr/share/atl                     \
+		/usr/lib/libnb-qemu.so*            \
+		/usr/lib/libnb-qemu-thunks         \
+		/usr/share/libnb-qemu-guest        \
+else
+	quick-sharun \
+		/usr/bin/android-translation-layer \
+		/usr/bin/addr2line                 \
+		/usr/bin/dex2oat                   \
+		/usr/bin/dalvikvm                  \
+		/usr/bin/dx                        \
+		/usr/lib/libOpenSLES.so*           \
+		/usr/lib/java                      \
+		/usr/lib/art                       \
+		/usr/share/atl
+fi
+
 echo 'ATL_APP_LAUNCHER=$APPIMAGE' >> ./AppDir/.env
 
 # Turn AppDir into AppImage
