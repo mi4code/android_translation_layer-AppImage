@@ -164,12 +164,12 @@ build_nb_qemu() (
 
 	git submodule update --init --recursive
 	sed -i '33s|.*|           $(BUILDDIR)/libnb-qemu-GLESv2.so \\|' libnb-qemu/Makefile
-	make PREFIX=/usr
+	make PREFIX=/usr/
 	
 	# we cant build gles1 thus we need to somehow replace it to avoid errors (this works just perfectly)
 	cp ./builddir/libnb-qemu/libnb-qemu-GLESv2.so ./builddir/libnb-qemu/libnb-qemu-GLESv1_CM.so
 	
-	make PREFIX=/usr install
+	make PREFIX=/usr/ install
 
 	# replace binary with helper script
 	mv /usr/bin/android-translation-layer /usr/bin/android-translation-layer-bin
