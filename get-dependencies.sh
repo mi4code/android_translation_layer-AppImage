@@ -78,11 +78,6 @@ build_meson_bin() (
 	meson setup build --prefix=/usr --libdir=lib --buildtype=release "$@"
 	meson compile -C build
 	meson install -C build
-
-	if [ "$repo" = 'android_translation_layer' ]; then
-		# allow extra arguments to be added to atl by default (ie. for native bridge)
-		ln -s /usr/bin/android-translation-layer-script "$APPDIR/usr/bin/android-translation-layer"
-	fi
 )
 
 # wolfssl needs to be built with jni support enabled for art_standalone
@@ -176,13 +171,13 @@ build_nb_qemu() (
 	
 	make PREFIX=/usr install
 
-	# create helper script
-	rm -f /usr/bin/android-translation-layer-script
-	tee /usr/bin/android-translation-layer-script > /dev/null << 'EOF'
+	# replace binary with helper script
+	mv /usr/bin/android-translation-layer /usr/bin/android-translation-layer-bin
+	tee /usr/bin/android-translation-layer > /dev/null << 'EOF'
 #!/usr/bin/bash
-NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
+NB_QEMU_SYSROOT=$APPDIR/share/libnb-qemu-guest android-translation-layer-bin "$@" -X '-Xforce-nb-testing' -X "-XX:NativeBridge=$APPDIR/lib/libnb-qemu.so"
 EOF
-	chmod +x /usr/bin/android-translation-layer-script
+	chmod +x /usr/bin/android-translation-layer
 
 )
 
